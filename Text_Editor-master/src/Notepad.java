@@ -4,12 +4,12 @@
 //
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -33,7 +33,6 @@ public class Notepad extends JFrame implements ActionListener {
     JTextArea area;
     JScrollPane scrollPane;
     String text;
-    private String[] fontTypes = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
     public String currentFont = "";
 
     Notepad() {
@@ -42,16 +41,16 @@ public class Notepad extends JFrame implements ActionListener {
         JMenuBar menuBar = new JMenuBar();
         JMenu file = new JMenu("File");
         JMenuItem newDoc = new JMenuItem("New");
-        newDoc.setAccelerator(KeyStroke.getKeyStroke(78, 128));
+        newDoc.setAccelerator(KeyStroke.getKeyStroke(78, InputEvent.CTRL_DOWN_MASK));
         newDoc.addActionListener(this);
         JMenuItem open = new JMenuItem("Open");
-        open.setAccelerator(KeyStroke.getKeyStroke(79, 128));
+        open.setAccelerator(KeyStroke.getKeyStroke(79, InputEvent.CTRL_DOWN_MASK));
         open.addActionListener(this);
         JMenuItem save = new JMenuItem("Save");
-        save.setAccelerator(KeyStroke.getKeyStroke(83, 128));
+        save.setAccelerator(KeyStroke.getKeyStroke(83, InputEvent.CTRL_DOWN_MASK));
         save.addActionListener(this);
         JMenuItem print = new JMenuItem("Print");
-        print.setAccelerator(KeyStroke.getKeyStroke(80, 128));
+        print.setAccelerator(KeyStroke.getKeyStroke(80, InputEvent.CTRL_DOWN_MASK));
         print.addActionListener(this);
         JMenuItem exit = new JMenuItem("Exit");
         exit.setAccelerator(KeyStroke.getKeyStroke(27, 0));
@@ -63,16 +62,16 @@ public class Notepad extends JFrame implements ActionListener {
         file.add(exit);
         JMenu edit = new JMenu("Edit");
         JMenuItem copy = new JMenuItem("Copy");
-        copy.setAccelerator(KeyStroke.getKeyStroke(67, 128));
+        copy.setAccelerator(KeyStroke.getKeyStroke(67, InputEvent.CTRL_DOWN_MASK));
         copy.addActionListener(this);
         JMenuItem paste = new JMenuItem("Paste");
-        paste.setAccelerator(KeyStroke.getKeyStroke(86, 128));
+        paste.setAccelerator(KeyStroke.getKeyStroke(86, InputEvent.CTRL_DOWN_MASK));
         paste.addActionListener(this);
         JMenuItem cut = new JMenuItem("Cut");
-        cut.setAccelerator(KeyStroke.getKeyStroke(88, 128));
+        cut.setAccelerator(KeyStroke.getKeyStroke(88, InputEvent.CTRL_DOWN_MASK));
         cut.addActionListener(this);
         JMenuItem selectAll = new JMenuItem("SelectAll");
-        selectAll.setAccelerator(KeyStroke.getKeyStroke(65, 128));
+        selectAll.setAccelerator(KeyStroke.getKeyStroke(65, InputEvent.CTRL_DOWN_MASK));
         selectAll.addActionListener(this);
         edit.add(copy);
         edit.add(paste);
@@ -134,7 +133,8 @@ public class Notepad extends JFrame implements ActionListener {
         size.add(size_32);
         size.add(size_36);
         Box theBox = Box.createHorizontalBox();
-        JComboBox fontList = new JComboBox(this.fontTypes);
+        String[] fontTypes = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
+        JComboBox<String> fontList = new JComboBox<>(fontTypes);
         theBox.add(fontList);
         JMenu help = new JMenu("Help");
         JMenuItem about = new JMenuItem("About Notepad");
@@ -149,7 +149,7 @@ public class Notepad extends JFrame implements ActionListener {
         menuBar.add(theme);
         menuBar.add(theBox);
         menuBar.add(help);
-        this.area.setFont(new Font("TIMES_NEW_ROMAN", 0, 20));
+        this.area.setFont(new Font("TIMES_NEW_ROMAN", Font.PLAIN, 20));
         this.area.setLineWrap(true);
         this.area.setWrapStyleWord(true);
         this.add(this.area);
@@ -158,11 +158,11 @@ public class Notepad extends JFrame implements ActionListener {
         this.scrollPane.setVerticalScrollBarPolicy(22);
         this.add(this.scrollPane);
         this.setVisible(true);
-        this.setLocationRelativeTo((Component)null);
+        this.setLocationRelativeTo(null);
         fontList.addActionListener((e1) -> {
             JComboBox comboBox = (JComboBox)e1.getSource();
             this.currentFont = (String)comboBox.getSelectedItem();
-            this.area.setFont(new Font(this.currentFont, 0, 20));
+            this.area.setFont(new Font(this.currentFont, Font.PLAIN, 20));
         });
     }
 
@@ -188,19 +188,19 @@ public class Notepad extends JFrame implements ActionListener {
         } else if (e.getActionCommand().equals("About Notepad")) {
             this.aboutNotepad();
         } else if (e.getActionCommand().equals("14")) {
-            this.area.setFont(new Font("TIMES_NEW_ROMAN", 0, 14));
+            this.area.setFont(new Font("TIMES_NEW_ROMAN", Font.PLAIN, 14));
         } else if (e.getActionCommand().equals("16")) {
-            this.area.setFont(new Font("TIMES_NEW_ROMAN", 0, 16));
+            this.area.setFont(new Font("TIMES_NEW_ROMAN", Font.PLAIN, 16));
         } else if (e.getActionCommand().equals("20")) {
-            this.area.setFont(new Font("TIMES_NEW_ROMAN", 0, 20));
+            this.area.setFont(new Font("TIMES_NEW_ROMAN", Font.PLAIN, 20));
         } else if (e.getActionCommand().equals("24")) {
-            this.area.setFont(new Font("TIMES_NEW_ROMAN", 0, 24));
+            this.area.setFont(new Font("TIMES_NEW_ROMAN", Font.PLAIN, 24));
         } else if (e.getActionCommand().equals("28")) {
-            this.area.setFont(new Font("TIMES_NEW_ROMAN", 0, 28));
+            this.area.setFont(new Font("TIMES_NEW_ROMAN", Font.PLAIN, 28));
         } else if (e.getActionCommand().equals("32")) {
-            this.area.setFont(new Font("TIMES_NEW_ROMAN", 0, 32));
+            this.area.setFont(new Font("TIMES_NEW_ROMAN", Font.PLAIN, 32));
         } else if (e.getActionCommand().equals("36")) {
-            this.area.setFont(new Font("TIMES_NEW_ROMAN", 0, 36));
+            this.area.setFont(new Font("TIMES_NEW_ROMAN", Font.PLAIN, 36));
         } else if (e.getActionCommand().equals("Dark")) {
             this.area.setBackground(Color.BLACK);
             this.area.setForeground(Color.lightGray);
@@ -217,16 +217,16 @@ public class Notepad extends JFrame implements ActionListener {
             this.area.setBackground(Color.GREEN);
             this.area.setForeground(Color.RED);
         } else if (e.getActionCommand().equals("Plain")) {
-            this.area.setFont(this.area.getFont().deriveFont(0));
+            this.area.setFont(this.area.getFont().deriveFont(Font.PLAIN));
         } else if (e.getActionCommand().equals("Bold")) {
-            this.area.setFont(this.area.getFont().deriveFont(1));
+            this.area.setFont(this.area.getFont().deriveFont(Font.BOLD));
         } else if (e.getActionCommand().equals("Italic")) {
-            this.area.setFont(this.area.getFont().deriveFont(2));
+            this.area.setFont(this.area.getFont().deriveFont(Font.ITALIC));
         } else if (e.getActionCommand().equals("Bold+Italic")) {
-            this.area.setFont(this.area.getFont().deriveFont(3));
+            this.area.setFont(this.area.getFont().deriveFont(Font.BOLD | Font.ITALIC));
         } else if (e.getActionCommand().equals("Choose color")) {
-            JColorChooser colorChooser = new JColorChooser();
-            Color color = JColorChooser.showDialog((Component)null, "choose color", Color.black);
+            new JColorChooser();
+            Color color = JColorChooser.showDialog(null, "choose color", Color.black);
             this.area.setForeground(color);
         }
 
@@ -243,13 +243,13 @@ public class Notepad extends JFrame implements ActionListener {
     void save() {
         JFileChooser save = new JFileChooser();
         save.setAcceptAllFileFilterUsed(false);
-        FileNameExtensionFilter restrict = new FileNameExtensionFilter("only  .txt files", new String[]{".txt"});
+        FileNameExtensionFilter restrict = new FileNameExtensionFilter("only  .txt files", ".txt");
         save.addChoosableFileFilter(restrict);
         save.setApproveButtonText("Save");
         int action = save.showOpenDialog(this);
         if (action == 0) {
             File file = new File(save.getSelectedFile() + ".txt");
-            BufferedWriter outFile = null;
+            BufferedWriter outFile;
 
             try {
                 outFile = new BufferedWriter(new FileWriter(file));
@@ -263,7 +263,7 @@ public class Notepad extends JFrame implements ActionListener {
 
     void open() {
         JFileChooser chooser = new JFileChooser();
-        FileNameExtensionFilter restrict = new FileNameExtensionFilter("only  .txt files", new String[]{".txt"});
+        FileNameExtensionFilter restrict = new FileNameExtensionFilter("only  .txt files", ".txt");
         chooser.addChoosableFileFilter(restrict);
         int action = chooser.showOpenDialog(this);
         if (action == 0) {
@@ -271,8 +271,8 @@ public class Notepad extends JFrame implements ActionListener {
 
             try {
                 BufferedReader reader = new BufferedReader(new FileReader(file));
-                this.area.read(reader, (Object)null);
-            } catch (Exception var6) {
+                this.area.read(reader, null);
+            } catch (Exception ignored) {
             }
 
         }
@@ -285,7 +285,7 @@ public class Notepad extends JFrame implements ActionListener {
     void printFile() {
         try {
             this.area.print();
-        } catch (Exception var2) {
+        } catch (Exception ignored) {
         }
 
     }
