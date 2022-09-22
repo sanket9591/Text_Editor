@@ -1,8 +1,3 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
